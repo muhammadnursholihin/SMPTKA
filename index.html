@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TKA DASHBOARD PRO</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="loader"><h1>TKA SYSTEM</h1><div class="spinner"></div></div>
+
+    <div id="login-page" class="modal-bg">
+        <div class="login-card">
+            <div class="icon-circle"><i class="fas fa-user-lock"></i></div>
+            <h2>Portal Login</h2>
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <button onclick="prosesLogin()" class="btn-main">Masuk Sistem</button>
+        </div>
+    </div>
+
+    <div id="main-app" class="app-container" style="display:none;">
+        <aside class="sidebar">
+            <div class="brand">DASHBOARD PRO</div>
+            <nav>
+                <div class="nav-item active" onclick="nav('ujian')" id="m-ujian"><i class="fas fa-edit"></i> Ujian</div>
+                <div class="admin-only">
+                    <div class="nav-item" onclick="nav('admin-soal')"><i class="fas fa-plus-circle"></i> Input Soal</div>
+                    <div class="nav-item" onclick="nav('admin-siswa')"><i class="fas fa-users-cog"></i> Kelola Siswa</div>
+                    <div class="nav-item" onclick="nav('admin-config')"><i class="fas fa-tools"></i> Pengaturan</div>
+                    <div class="nav-item" onclick="nav('admin-rekap')"><i class="fas fa-chart-line"></i> Pemantauan</div>
+                </div>
+                <div class="nav-item logout" onclick="location.reload()"><i class="fas fa-sign-out-alt"></i> Keluar</div>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header>
+                <div id="user-tag">---</div>
+                <div id="status-tag">Status: Online</div>
+            </header>
+
+            <section id="p-ujian" class="page">
+                <div class="card center">
+                    <h3>Ujian Belum Dimulai</h3>
+                    <button onclick="mulaiUjian()" class="btn-main">Mulai Sekarang</button>
+                </div>
+                <div id="soal-container" style="display:none;"></div>
+            </section>
+
+            <section id="p-admin-soal" class="page" style="display:none;">
+                <div class="card">
+                    <h3>Tambah Soal Baru</h3>
+                    <select id="s-tipe"><option value="PG">Pilihan Ganda</option><option value="ESSAY">Essay</option></select>
+                    <textarea id="s-tanya" placeholder="Pertanyaan"></textarea>
+                    <div id="opsi-pg">
+                        <input type="text" id="s-a" placeholder="Opsi A">
+                        <input type="text" id="s-b" placeholder="Opsi B">
+                        <input type="text" id="s-c" placeholder="Opsi C">
+                        <input type="text" id="s-d" placeholder="Opsi D">
+                        <input type="text" id="s-kunci" placeholder="Kunci Jawaban (A/B/C/D)">
+                    </div>
+                    <button onclick="simpanSoal()" class="btn-main">Simpan Soal ke Cloud</button>
+                </div>
+            </section>
+
+            <section id="p-admin-siswa" class="page" style="display:none;">
+                <div class="card">
+                    <h3>Tambah Siswa Baru</h3>
+                    <input type="text" id="sis-nama" placeholder="Nama Lengkap">
+                    <input type="text" id="sis-user" placeholder="Username">
+                    <input type="text" id="sis-pass" placeholder="Password">
+                    <button onclick="simpanSiswa()" class="btn-main">Tambah Siswa</button>
+                </div>
+                <div class="card"><table id="t-siswa"><thead><tr><th>Nama</th><th>Status</th><th>Aksi</th></tr></thead><tbody></tbody></table></div>
+            </section>
+
+            <section id="p-admin-config" class="page" style="display:none;">
+                <div class="card">
+                    <h3>Atur Token & Waktu</h3>
+                    <label>Token Ujian</label>
+                    <input type="text" id="cfg-token">
+                    <label>Durasi (Menit)</label>
+                    <input type="number" id="cfg-durasi">
+                    <button onclick="simpanConfig()" class="btn-main">Update Pengaturan</button>
+                </div>
+            </section>
+
+            <section id="p-admin-rekap" class="page" style="display:none;">
+                <div class="card"><h3>Hasil Ujian Siswa</h3><table id="t-hasil"><thead><tr><th>Nama</th><th>Skor</th><th>Waktu</th></tr></thead><tbody></tbody></table></div>
+            </section>
+        </main>
+    </div>
+    <div id="timer" class="float-timer" style="display:none;">00:00</div>
+    <script src="script.js"></script>
+</body>
+</html>
